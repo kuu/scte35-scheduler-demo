@@ -78,94 +78,98 @@ export default function App() {
 
   return (<div>
     <h1>SCTE35 Event Scheduler</h1>
-    <p>
-      Timeline length:
-      <input
+    <div>
+      <h2>Timeline Editor</h2>
+      <p>
+        Timeline length:
+        <input
+          disabled={isScheduling}
+          type='text'
+          pattern='[0-9]*'
+          value={len}
+          onChange={(event) => {
+            let num = Number.parseInt(event.target.value, 10);
+            if (Number.isNaN(num)) {
+              num = 0;
+            }
+            setLen(num);
+          }}
+          onKeyDown={({key}) => {
+            if (key !== 'Enter') {
+              return;
+            }
+            let num = len;
+            if (Number.isNaN(num)) {
+              num = DEFAULT_TIMELINE_LENGTH;
+            } else if (num > MAX_TIMELINE_LENGTH) {
+              num = MAX_TIMELINE_LENGTH;
+            } else if (num < MIN_TIMELINE_LENGTH) {
+              num = MIN_TIMELINE_LENGTH;
+            }
+            setTimelineLen(num);
+          }}
+        />
+      </p>
+      <div><Bars timelineLen={timelineLen} onTimelineUpdated={setTimeline} disabled={isScheduling} /></div>
+      <p>
+        Region:
+        <select
+          disabled={isScheduling}
+          value={region}
+          onChange={(event) => {
+            setRegion(event.target.value);
+          }}
+        >
+          <option value="us-east-1">IAD</option>
+          <option value="us-west-2">PDX</option>
+          <option value="ap-northeast-1">NRT</option>
+          <option value="eu-west-1">DUB</option>
+          <option value="us-west-1">SFO</option>
+          <option value="eu-central-1">FRA</option>
+          <option value="ap-southeast-1">SIN</option>
+        </select>
+        MediaLive Channel ID:
+        <input
+          disabled={isScheduling}
+          type='text'
+          pattern='[0-9]*'
+          value={channelId}
+          onChange={(event) => {
+            setChannelId(event.target.value);
+          }}
+        />
+      </p>
+      <button
         disabled={isScheduling}
-        type='text'
-        pattern='[0-9]*'
-        value={len}
-        onChange={(event) => {
-          let num = Number.parseInt(event.target.value, 10);
-          if (Number.isNaN(num)) {
-            num = 0;
+        onClick={() => {
+          if (timeline.length === 0) {
+            return alert('No timeline is specified.');
           }
-          setLen(num);
-        }}
-        onKeyDown={({key}) => {
-          if (key !== 'Enter') {
-            return;
+          if (Number.parseInt(channelId, 10).toString(10) !== channelId) {
+            return alert(`INVALID CHANNEL ID: "${channelId}"`);
           }
-          let num = len;
-          if (Number.isNaN(num)) {
-            num = DEFAULT_TIMELINE_LENGTH;
-          } else if (num > MAX_TIMELINE_LENGTH) {
-            num = MAX_TIMELINE_LENGTH;
-          } else if (num < MIN_TIMELINE_LENGTH) {
-            num = MIN_TIMELINE_LENGTH;
-          }
-          setTimelineLen(num);
-        }}
-      />
-    </p>
-    <div><Bars timelineLen={timelineLen} onTimelineUpdated={setTimeline} disabled={isScheduling} /></div>
-    <p>
-      Region:
-      <select
-        disabled={isScheduling}
-        value={region}
-        onChange={(event) => {
-          setRegion(event.target.value);
+          console.log('Start Scheduling');
+          console.log(`Timeline Length: ${timelineLen}`);
+          console.log(`Timeline: ${JSON.stringify(timeline, null, 2)}`);
+          console.log(`Region: ${region}`);
+          console.log(`Channel ID: ${channelId}`);
+          setIsScheduling(true);
         }}
       >
-        <option value="us-east-1">IAD</option>
-        <option value="us-west-2">PDX</option>
-        <option value="ap-northeast-1">NRT</option>
-        <option value="eu-west-1">DUB</option>
-        <option value="us-west-1">SFO</option>
-        <option value="eu-central-1">FRA</option>
-        <option value="ap-southeast-1">SIN</option>
-      </select>
-      MediaLive Channel ID:
-      <input
-        disabled={isScheduling}
-        type='text'
-        pattern='[0-9]*'
-        value={channelId}
-        onChange={(event) => {
-          setChannelId(event.target.value);
+        Start Scheduling
+      </button>
+      <button
+        style={{display: isScheduling ? 'block' : 'none'}}
+        onClick={() => {
+          console.log('Stop Scheduling');
+          setIsScheduling(false);
         }}
-      />
-    </p>
-    <button
-      disabled={isScheduling}
-      onClick={() => {
-        if (timeline.length === 0) {
-          return alert('No timeline is specified.');
-        }
-        if (Number.parseInt(channelId, 10).toString(10) !== channelId) {
-          return alert(`INVALID CHANNEL ID: "${channelId}"`);
-        }
-        console.log('Start Scheduling');
-        console.log(`Timeline Length: ${timelineLen}`);
-        console.log(`Timeline: ${JSON.stringify(timeline, null, 2)}`);
-        console.log(`Region: ${region}`);
-        console.log(`Channel ID: ${channelId}`);
-        setIsScheduling(true);
-      }}
-    >
-      Start Scheduling
-    </button>
-    <button
-      style={{display: isScheduling ? 'block' : 'none'}}
-      onClick={() => {
-        console.log('Stop Scheduling');
-        setIsScheduling(false);
-      }}
-    >
-      Stop Scheduling
-    </button>
+      >
+        Stop Scheduling
+      </button>
+    </div>
     <div>
+      <h2>Schedule API call</h2>
       <pre ref={preRef} style={styles.pre}></pre>
     </div>
     <p>

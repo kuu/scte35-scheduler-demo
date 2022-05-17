@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint .",
     "test": "npm run lint && jest --passWithNoTests",
-    "build": "npm test && webpack --mode=production",
+    "build": "npm test && webpack --mode=development",
     "start": "npm run build && node ./server/index.js"
   },
   "keywords": [],

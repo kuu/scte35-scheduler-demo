@@ -27,6 +27,7 @@ export default function Player({url, width, height}) {
         {isSupportBrowser && (
           <div className="videoContainer" >
             <video ref={videoRef} width={width} height={height} controls></video>
+            <h2>Manifest Monitoring</h2>
             <pre ref={preRef}></pre>
           </div>
         )}
