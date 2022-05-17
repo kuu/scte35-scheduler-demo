@@ -1,0 +1,35 @@
+{
+  "name": "timeline-bar",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "npm run lint && jest --passWithNoTests",
+    "build": "npm test && webpack --mode=production",
+    "start": "npm run build && node ./server/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/preset-env": "^7.17.10",
+    "@babel/preset-react": "^7.16.7",
+    "babel-loader": "^8.2.5",
+    "css-loader": "^6.7.1",
+    "eslint": "^8.15.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-react": "^7.29.4",
+    "jest": "^28.1.0",
+    "prettier": "^2.6.2",
+    "style-loader": "^3.3.1",
+    "webpack-cli": "^4.9.2"
+  },
+  "dependencies": {
+    "hls.js": "^1.1.5",
+    "modali": "^1.2.0",
+    "react-dom": "^16.14.0",
+    "react-reserver": "^1.4.0",
+    "ws": "^8.6.0"
+  }
+}

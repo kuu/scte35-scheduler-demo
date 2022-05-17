@@ -1,0 +1,3 @@
+modeule.exports = {
+  singleQuote: true,
+};

@@ -1,0 +1,18 @@
+{
+  "ScheduleActions": [
+    {
+      "ActionName": "splice_insert()-2",
+      "ScheduleActionSettings": {
+        "Scte35SpliceInsertSettings": {
+          "SpliceEventId": 2,
+          "Duration": 2700000
+        }
+      },
+      "ScheduleActionStartSettings": {
+        "FixedModeScheduleActionStartSettings": {
+          "Time": "2022-05-17T14:10:25.942Z"
+        }
+      }
+    }
+  ]
+}
