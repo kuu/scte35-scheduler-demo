@@ -23,5 +23,5 @@ $ npm i
 ```
 $ npm start
 ```
-And then open `http://localhost:8000` in your browser.
+Once the server is started, open `http://localhost:8000` in your browser.
 * (Only tested with local macOS + Chrome)
