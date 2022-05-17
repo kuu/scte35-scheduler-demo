@@ -17,4 +17,4 @@ $ npm i
 ```
 $ npm start
 ```
-And then open `http:localhost:8000` in your browser.
+And then open `http://localhost:8000` in your browser.
