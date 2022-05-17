@@ -1,10 +1,16 @@
 # scte35-scheduler-demo
-MediaLive SCTE35 Scheduler Demo
+AWS Elemental MediaLive SCTE35 Scheduler Demo
 
 ## Prerequisites
+You need to install the following SW in your local machine:
 * git
 * Node.js
-* (Only tested with local macOS + Chrome)
+* AWS CLI (you need to configure with your account)
+
+You also need to setup a media pipeline:
+* MediaLive channel
+* An endpoint as the destination of the above MediaLive channel
+
 
 ## Install
 ```
@@ -17,4 +23,5 @@ $ npm i
 ```
 $ npm start
 ```
-And then open `http:localhost:8000` in your browser.
+And then open `http://localhost:8000` in your browser.
+* (Only tested with local macOS + Chrome)
